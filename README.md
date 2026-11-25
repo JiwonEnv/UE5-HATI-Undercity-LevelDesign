@@ -9,18 +9,34 @@
 `HATI_Undercity.uproject`를 더블클릭하세요(UE 5.8). 에디터는 `L_Dev_Sandbox`에서 시작합니다.
 
 ## 폴더 구조
+**원칙: 우리가 만드는 것은 전부 `HATI/` 안에, 템플릿에서 온 것은 `_Template/` 안에 둡니다.**
+
 ```
 Content/
-  HATI/
-    Maps/Dev/        L_Dev_ScaleGym (치수 테스트), L_Dev_Sandbox (자유 블록아웃)
-    Maps/Scenes/     씬별 레벨 (정해지는 대로 추가)
-    Blockout/        Materials (MI_BO_*), Meshes, Prefabs
-    Blueprints/ Characters/ Environment/ Props/ Materials/ Textures/ VFX/ Audio/ UI/ Cinematics/ Data/
-  LevelPrototyping/  엔진 기본 블록아웃 메쉬·그리드 머티리얼 (SM_Cube, SM_Ramp, M_PrototypeGrid ...)
-  ThirdPerson/ Characters/ Input/   3인칭 템플릿 (플레이어 캐릭터, 입력)
-Tools/setup_blockout.py             위 HATI 블록아웃 에셋을 다시 만드는 스크립트
+├─ HATI/                  ← 우리 작업물
+│  ├─ Maps/
+│  │  ├─ Scenes/          씬 1~3 실제 레벨 (정해지는 대로 추가)
+│  │  └─ Dev/             테스트 맵: L_Dev_ScaleGym (치수), L_Dev_Sandbox (자유 블록아웃),
+│  │                      L_Dev_PCGBiome (실내 PCG), L_Dev_PCGBiome_Outdoor (쉘터 바깥 PCG)
+│  ├─ Blockout/           Materials (MI_BO_*), Meshes, Prefabs
+│  ├─ Environment/        배경 메시·머티리얼·텍스처 (구역별 하위 폴더)
+│  ├─ Props/              소품
+│  ├─ PCG/                PCG 그래프, HATI용 Biome Definition·Asset
+│  └─ Blueprints/ Characters/ VFX/ Audio/ UI/ Cinematics/ Data/
+└─ _Template/             UE 템플릿에서 온 것 (직접 수정하지 않음)
+   ├─ LevelPrototyping/   기본 블록아웃 메시·그리드 머티리얼 (SM_Cube, SM_Ramp, M_PrototypeGrid …)
+   ├─ ThirdPerson/        3인칭 캐릭터·게임모드 BP, 예제 맵 Lvl_ThirdPerson
+   ├─ Characters/         마네킹 (Manny, Quinn)
+   └─ Input/              입력 액션·매핑
+Tools/setup_blockout.py             HATI 블록아웃 에셋을 다시 만드는 스크립트
 Tools/setup_pcg_biome_test.py       PCG Biome 테스트 맵(L_Dev_PCGBiome)을 다시 만드는 스크립트
+Tools/setup_pcg_biome_outdoor.py    PCG Biome 실외 테스트 맵을 다시 만드는 스크립트
+Tools/reorganize_content.py         템플릿 폴더를 _Template으로 옮긴 1회용 스크립트 (기록용)
 ```
+
+- 빈 폴더는 Git에 올라가지 않아서 `.gitkeep` 파일을 넣어 두었습니다. 에디터에는 보이지 않는 파일이니 무시하면 됩니다.
+- Content Browser 설정(오른쪽 위 Settings)에서 **Show Engine Content는 끄고**, Biome 샘플을 볼 때만 **Show Plugin Content**를 켭니다.
+- 에셋을 옮기거나 이름을 바꿀 때 "Not checked-out or writable" 오류가 나면 파일이 읽기 전용인 것입니다. `.gitattributes`의 LFS `lockable` 설정 때문이며, 파일 속성에서 읽기 전용을 풀면 됩니다.
 
 ## PCG Biome Core 테스트 (2026-11-25 ~, Experimental)
 Epic의 **PCG Biome Core**를 "환경 구역 클러터" 도구로 쓸 수 있는지 시험합니다. 여기서 바이옴은 자연 지형이 아니라 오염 구역, 폐기물 적치장, 거주 구역 같은 구역 단위입니다.

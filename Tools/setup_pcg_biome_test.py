@@ -25,7 +25,7 @@ EAS = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
 
 MAP = "/Game/HATI/Maps/Dev/L_Dev_PCGBiome"
 MAT = "/Game/HATI/Blockout/Materials/MI_BO_"
-CUBE = "/Game/LevelPrototyping/Meshes/SM_Cube"
+CUBE = "/Game/_Template/LevelPrototyping/Meshes/SM_Cube"
 BIOME_BP = "/PCGBiomeCore/Blueprints/"
 BIOME_DEF = "/PCGBiomeSample/BiomeDefinitions/Landslide"
 BIOME_ASSET = "/PCGBiomeSample/BiomeAssets/Landslide"

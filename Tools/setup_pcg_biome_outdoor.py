@@ -163,7 +163,7 @@ def label_text(txt, loc, size=600, color=(255, 255, 255)):
 
 
 def blockout_wall(label, minc, size):
-    mesh = unreal.load_asset("/Game/LevelPrototyping/Meshes/SM_Cube")
+    mesh = unreal.load_asset("/Game/_Template/LevelPrototyping/Meshes/SM_Cube")
     bb = mesh.get_bounding_box()
     ms = bb.max - bb.min
     scale = unreal.Vector(size[0] / ms.x, size[1] / ms.y, size[2] / ms.z)
