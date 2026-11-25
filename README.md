@@ -63,6 +63,10 @@ UE 기본 마네킹 기준(키 약 180cm, 캡슐 반경 42cm)이며, 짐 맵에�
 - 계단 높이: 15 / 20 / 30 / 45 / 50 (오를 수 있는 한계 약 45)
 - 복도 폭: 100 ~ 400, 문 크기 100×220
 
+## 커밋 규칙
+[Docs/COMMIT_CONVENTION.md](Docs/COMMIT_CONVENTION.md) — `<타입>(<스코프>): <제목>` 형식이고, 설명은 모두 한글로 씁니다. 제목만 읽어도 무엇을 했는지 알 수 있게 씁니다.
+템플릿 등록: `git config commit.template .gitmessage`
+
 ## 작업 팁
 - `Shift+5` → Modeling Mode (CubeGrid, PolyEdit, Boolean)로 형태를 빠르게 잡습니다.
 - 뷰포트 스냅은 위치 50/100, 회전 15°를 권장합니다.
