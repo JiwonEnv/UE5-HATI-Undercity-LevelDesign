@@ -79,6 +79,19 @@ UE 기본 마네킹 기준(키 약 180cm, 캡슐 반경 42cm)이며, 짐 맵에�
 - 계단 높이: 15 / 20 / 30 / 45 / 50 (오를 수 있는 한계 약 45)
 - 복도 폭: 100 ~ 400, 문 크기 100×220
 
+## 조명·노출 규칙
+범위는 프로젝트 설정으로 넉넉히 잡고, 각 맵의 분위기는 조명과 Post Process Volume으로 맞춥니다.
+
+1. **프로젝트 전체** (`Config/DefaultEngine.ini`): `r.EyeAdaptation.CachedLightingPreExposure=6`
+   - Lumen과 스카이 캡처가 깨끗하게 저장하는 노출 범위를 EV -8~12(기본)에서 **-6~14**로 넓힙니다.
+   - 어두운 지하와 맑은 실외를 둘 다 담기 위한 값입니다. 화면에 "Cached lighting in Lumen … is going to be clipped" 경고가 뜨면 이 범위를 벗어난 것입니다.
+2. **맵마다**: 맵 전체에 적용되는(Infinite Extent) Post Process Volume `PPV_Global`을 하나 두고 노출 범위를 정합니다.
+   | 분위기 | Min / Max EV100 | 예 |
+   |---|---|---|
+   | 맑은 실외 | 10 / 14 | `L_Dev_PCGBiome_Outdoor` |
+   | 어두운 지하 | -2 / 6 (조명 작업 때 조정) | 씬 레벨 |
+   - `Tools/setup_post_process.py`의 `PRESETS`에 맵을 추가하고 실행하면 `PPV_Global`이 들어갑니다.
+
 ## 커밋 규칙
 [Docs/COMMIT_CONVENTION.md](Docs/COMMIT_CONVENTION.md) — `<타입>(<스코프>): <제목>` 형식이고, 설명은 모두 한글로 씁니다. 제목만 읽어도 무엇을 했는지 알 수 있게 씁니다.
 템플릿 등록: `git config commit.template .gitmessage`
