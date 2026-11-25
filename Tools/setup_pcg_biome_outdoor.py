@@ -202,6 +202,17 @@ def build_layout():
         warn("exclusion spline has no SplineComponent")
     label_text("ROAD (exclusion spline)", (-17000, -9000, ground_z(-17000, -9000) + 1200), 500, (220, 220, 220))
 
+    # exposure for a sunny exterior (same preset as Tools/setup_post_process.py)
+    ppv = EAS.spawn_actor_from_class(unreal.PostProcessVolume, unreal.Vector(0, 0, 0), unreal.Rotator())
+    ppv.set_actor_label("PPV_Global")
+    ppv.set_folder_path("Lighting")
+    ppv.set_editor_property("unbound", True)
+    s = ppv.get_editor_property("settings")
+    for k, v in (("auto_exposure_min_brightness", 10.0), ("auto_exposure_max_brightness", 14.0), ("auto_exposure_bias", 0.0)):
+        s.set_editor_property("override_" + k, True)
+        s.set_editor_property(k, v)
+    ppv.set_editor_property("settings", s)
+
     # player start near the gate
     ps = EAS.spawn_actor_from_class(unreal.PlayerStart, unreal.Vector(-8000, 0, gz + 200), unreal.Rotator(0, 0, 180))
     ps.set_folder_path("Gameplay")
