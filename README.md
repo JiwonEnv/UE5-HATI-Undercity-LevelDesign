@@ -19,7 +19,24 @@ Content/
   LevelPrototyping/  엔진 기본 블록아웃 메쉬·그리드 머티리얼 (SM_Cube, SM_Ramp, M_PrototypeGrid ...)
   ThirdPerson/ Characters/ Input/   3인칭 템플릿 (플레이어 캐릭터, 입력)
 Tools/setup_blockout.py             위 HATI 블록아웃 에셋을 다시 만드는 스크립트
+Tools/setup_pcg_biome_test.py       PCG Biome 테스트 맵(L_Dev_PCGBiome)을 다시 만드는 스크립트
 ```
+
+## PCG Biome Core 테스트 (2026-11-25 ~, Experimental)
+Epic의 **PCG Biome Core**를 "환경 구역 클러터" 도구로 쓸 수 있는지 시험합니다. 여기서 바이옴은 자연 지형이 아니라 오염 구역, 폐기물 적치장, 거주 구역 같은 구역 단위입니다.
+- 플러그인: `PCG`, `PCGGeometryScriptInterop`, `PCGBiomeCore`, `PCGBiomeSample` (엔진 Experimental 플러그인)
+- 테스트 맵: `Maps/Dev/L_Dev_PCGBiome` — 40×40m 메시 바닥 방
+  - 북동쪽 빨간 바닥 = `PCG_Biome_Contamination` (Biome Volume, 임시로 Sample의 *Landslide* 바위 사용)
+  - 가운데 주 동선 = `PCG_Exclusion_Path` (Exclusion Volume, 동선과 엄폐물을 비워 둠)
+  - 남서쪽 = 비교용 빈 구역
+- 다시 만들기: `UnrealEditor.exe HATI_Undercity.uproject -ExecutePythonScript="Tools/setup_pcg_biome_test.py" -HATIQuit`
+- 원칙: 플레이테스트가 끝날 때까지 `Maps/Scenes` 씬 레벨에는 넣지 않습니다. 실제로 쓰게 되면 공식 권장대로 플러그인을 프로젝트 `Plugins/`에 복사해서 씁니다.
+- **1차 결과 (2026-11-25): 메시 바닥에서는 아무것도 생성되지 않음 (0개).** Biome Volume에 Definition과 Assets(Landslide)를 넣었지만, Sample의 제너레이터(`BiomesGenerator_SG_Sampler_*`)와 기본 템플릿(`TPL_BiomeCore_Generator`)이 **Get Landscape Data**로 점을 뽑기 때문에 랜드스케이프가 없으면 점이 생기지 않습니다. 어셈블리 배치용 표면 입력(`WorldRayHitSetting`)은 스태틱 메시도 지원합니다.
+- **실외 테스트 (2026-11-25): 성공, 약 16,700개 생성.** `Maps/Dev/L_Dev_PCGBiome_Outdoor` — 쉘터 바깥을 가정한 맵입니다. Python으로는 랜드스케이프를 만들 수 없어서 Biome Sample 맵의 1km 지형을 복사했고, Epic의 바이옴 배치는 지운 뒤 우리 구역을 다시 깔았습니다. 다시 만들기: `Tools/setup_pcg_biome_outdoor.py`
+  - `Wasteland`(Desert): 드문드문한 선인장과 관목 / `DeadForest`(ConiferousForest): 빽빽한 침엽수 / `RubbleField`(Landslide): 바위(구역 대부분이 호수라 적게 생성됨)
+  - `Exclusion_Road`(제외 스플라인): 쉘터 게이트로 가는 길 / `Exclusion_Gate`(제외 볼륨) + 보라색 쉘터 외벽 블록아웃
+  - 확인용 스크린샷: `Saved/Screenshots/WindowsEditor/PCGBiome_Outdoor.png`
+- 실내(메시 바닥) 다음 할 일: ① Sampler 그래프를 프로젝트로 복사해 Get Landscape Data를 메시 표면 샘플링으로 바꾸기, 또는 ② 테스트용 평평한 랜드스케이프를 깔아 원래 흐름부터 확인하기 → 그다음 자체 폐기물 에셋으로 Biome Definition/Asset 만들기, 부모-자식 배치(컨테이너 주변 잔해)
 
 ## 블록아웃 색상 규칙 (`/Game/HATI/Blockout/Materials`)
 모든 머티리얼은 **월드 좌표 기준 그리드**라서 큰 칸 1개가 1m, 작은 칸 1개가 25cm입니다. 오브젝트를 늘려도 격자가 늘어나지 않습니다.
