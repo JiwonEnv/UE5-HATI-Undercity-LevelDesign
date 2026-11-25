@@ -25,12 +25,12 @@ ROOT = "/Game/HATI"
 FOLDERS = [
     "Maps/Dev", "Maps/Scenes",
     "Blockout/Materials", "Blockout/Meshes", "Blockout/Prefabs",
-    "Blueprints", "Characters", "Environment", "Props", "Materials", "Textures",
+    "Environment", "Props", "PCG", "Blueprints", "Characters",
     "VFX", "Audio", "UI", "Cinematics", "Data",
 ]
 
-GRID_PARENT = "/Game/LevelPrototyping/Materials/M_PrototypeGrid"
-CUBE = "/Game/LevelPrototyping/Meshes/SM_Cube"
+GRID_PARENT = "/Game/_Template/LevelPrototyping/Materials/M_PrototypeGrid"
+CUBE = "/Game/_Template/LevelPrototyping/Meshes/SM_Cube"
 
 # Level-design color legend (linear colors). Grid lines are derived darker.
 LEGEND = [
