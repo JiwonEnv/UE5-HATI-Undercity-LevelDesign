@@ -1,0 +1,16 @@
+
+# <타입>(<스코프>): <무엇을 했는지 한글로, 50자 이내, 명사형 끝맺음>
+# 예) level(scene2): 2층 저격 위치 엄폐물을 높이 150으로 변경
+#
+# - 왜 바꿨는지, 확인한 결과, 바뀐 수치를 한글로
+# - 한 줄 72자 안팎에서 줄바꿈
+#
+# Refs: #이슈번호
+# Co-Authored-By: 이름 <메일>
+#
+# 타입: feat 새 기능/맵/구역 | fix 버그·끼임·뚫림 | level 배치·동선 조정
+#       art 아트 패스 | docs 문서 | refactor 구조 정리 | perf 성능
+#       tools 에디터 스크립트 | chore 설정·플러그인 | revert 되돌리기
+# 스코프: scene1~3 dev blockout pcg bp char ui audio config
+# 규칙 전체: Docs/COMMIT_CONVENTION.md
+# '#'으로 시작하는 줄은 커밋 메시지에 들어가지 않습니다.
